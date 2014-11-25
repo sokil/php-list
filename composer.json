@@ -1,6 +1,6 @@
 {
-    "name": "sokil/php-prioritylist",
-    "description": "Priority List",
+    "name": "sokil/php-list",
+    "description": "Lists",
     "license": "MIT",
     "authors": [
         {
@@ -11,7 +11,7 @@
     "require": {},
     "autoload": {
         "psr-4": {
-            "Sokil\\": "src/"
+            "Sokil\\DataType\\": "src/"
         }
     }
 }

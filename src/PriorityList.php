@@ -1,8 +1,8 @@
 <?php
 
-namespace Sokil;
+namespace Sokil\DataType;
 
-class PriorityList implements \Iterator, \Countable
+class PriorityList implements ListInterface, \Iterator, \Countable
 {    
     private $lastSequence = 0;
     

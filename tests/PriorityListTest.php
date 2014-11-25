@@ -1,6 +1,6 @@
 <?php
 
-namespace Sokil;
+namespace Sokil\DataType;
 
 class PriorityListTest extends \PHPUnit_Framework_TestCase
 {
