@@ -1,0 +1,17 @@
+{
+    "name": "sokil/php-prioritylist",
+    "description": "Priority List",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Dmytro Sokil",
+            "email": "dmytro.sokil@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Sokil\\": "src/"
+        }
+    }
+}
