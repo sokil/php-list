@@ -32,7 +32,7 @@ class PriorityList implements \Iterator, \Countable
     
     public function get($name)
     {
-        return isset($this->list[$name]) ? $this->list[$name] : null;
+        return isset($this->list[$name]) ? $this->list[$name]->value : null;
     }
     
     public function count()
