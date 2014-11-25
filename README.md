@@ -6,7 +6,7 @@ You can install library through Composer:
 ```javascript
 {
     "require": {
-        "sokil/php-prioritylist": "dev-master"
+        "sokil/php-list": "dev-master"
     }
 }
 ```
@@ -16,7 +16,7 @@ Add elements to list with priority definition:
 ```php
 <?php
 
-$list = new \Sokil\PriorityList();
+$list = new \Sokil\DataType\PriorityList();
 $list->set('key1', 'value1', 10);
 $list->set('key2', 'value2', 100);
 ```
@@ -39,7 +39,11 @@ Get element by key:
 ```php
 <?php
 
-$list = new \Sokil\PriorityList();
+$list = new \Sokil\DataType\PriorityList();
 $list->set('key1', 'value1', 10);
 $list->get('key2');
 ```
+    
+Weight List
+===========
+
