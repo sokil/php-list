@@ -16,7 +16,7 @@ Add elements to list with priority definition:
 ```php
 <?php
 
-$list = new PriorityList();
+$list = new \Sokil\PriorityList();
 $list->set('key1', 'value1', 10);
 $list->set('key2', 'value2', 100);
 ```
@@ -39,7 +39,7 @@ Get element by key:
 ```php
 <?php
 
-$list = new PriorityList();
+$list = new \Sokil\PriorityList();
 $list->set('key1', 'value1', 10);
 $list->get('key2');
 ```
