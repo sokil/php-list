@@ -36,6 +36,7 @@ foreach($list as $key => $value) {
 
 Get element by key:
 
+```php
 <?php
 
 $list = new PriorityList();
