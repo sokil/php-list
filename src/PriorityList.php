@@ -15,19 +15,30 @@ class PriorityList implements \Iterator, \Countable
     
     /**
      * 
-     * @param string $name name
+     * @param string $key name
      * @param string $value value
      * @param string $priority priority
      * @return \Sokil\PriorityList
      */
-    public function set($name, $value, $priority = 0)
+    public function set($key, $value, $priority = 0)
     {
-        $this->list[$name] = new \stdclass();
-        $this->list[$name]->value = $value;
-        $this->list[$name]->priority = $priority;
-        $this->list[$name]->sequence = $this->lastSequence++;
+        $this->list[$key] = new \stdclass();
+        $this->list[$key]->value = $value;
+        $this->list[$key]->priority = (int) $priority;
+        $this->list[$key]->sequence = $this->lastSequence++;
         
-        return $this->list[$name];
+        return $this->list[$key];
+    }
+    
+    public function setPriority($key, $priority)
+    {
+        if($this->list[$key]) {
+            $this->list[$key]->priority = (int) $priority;
+        } else {
+            $this->set($key, null, $priority);
+        }
+        
+        return $this;
     }
     
     public function get($name)
