@@ -8,7 +8,7 @@ class PriorityListTest extends \PHPUnit_Framework_TestCase
     {
         $list = new PriorityList();
         
-        $this->assertEquals(['a' => 'a', 'b' => 'b'], ['b' => 'b', 'a' => 'a']);
+        $this->assertEquals(array('a' => 'a', 'b' => 'b'), array('b' => 'b', 'a' => 'a'));
         
         $list->set('k1', 'v1', 2);
         $list->set('k2', 'v2', 8);
