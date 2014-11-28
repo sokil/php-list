@@ -7,30 +7,37 @@ namespace Sokil\DataType;
  * probability of this key.
  * 
  */
-class WeightList implements ListInterface
+class WeightList
 {
-    private $weights;
+    private $list;
     
-    public function __construct(array $weights)
+    public function __construct(array $list = array())
     {
-        $this->weights = $weights;
+        $this->list = $list;
     }
     
-    public function getRandomKey()
+    public function set($value, $weight)
     {
-        return $this->getKey(mt_rand(0, array_sum($this->weights)));
+        $this->list[$value] = $weight;
+        return $this;
     }
     
-    public function getKey($position)
+    private function getValueByPosition($position)
     {
         $accumulator = 0;
-        foreach($this->weights as $key => $weight) {
+        foreach($this->list as $value => $weight) {
             $accumulator += $weight;
             if($position <= $accumulator) {
-                return $key;
+                return $value;
             }
         }
 
-        return $key;
+        return $value;
+    }
+    
+    public function getRandomValue()
+    {
+        $position = mt_rand(0, array_sum($this->list));
+        return $this->getValueByPosition($position);
     }
 }

@@ -28,33 +28,48 @@ class WeightListTest extends \PHPUnit_Framework_TestCase
         
     }
     
-    public function testGetKey()
+    public function testGetValue()
     {
-        $this->assertEquals('apple', $this->weightList->getKey(0));
+        $reflection = new \ReflectionClass($this->weightList);
+        $method = $reflection->getMethod('getValueByPosition');
+        $method->setAccessible(true);
+        
+        $this->assertEquals('apple', $method->invoke($this->weightList, 0));
 
-        $this->assertEquals('apple', $this->weightList->getKey(4));
+        $this->assertEquals('apple', $method->invoke($this->weightList, 4));
 
-        $this->assertEquals('orange', $this->weightList->getKey(45));
+        $this->assertEquals('orange', $method->invoke($this->weightList, 45));
 
-        $this->assertEquals('orange', $this->weightList->getKey(70));
+        $this->assertEquals('orange', $method->invoke($this->weightList, 70));
 
-        $this->assertEquals('lemon', $this->weightList->getKey(71));
+        $this->assertEquals('lemon', $method->invoke($this->weightList, 71));
 
-        $this->assertEquals('potato', $this->weightList->getKey(100));
+        $this->assertEquals('potato', $method->invoke($this->weightList, 100));
     }
     
-    function testGetRandomKey()
+    public function testSet()
+    {
+        $this->weightList->set('pear', 20);
+        
+        $reflection = new \ReflectionClass($this->weightList);
+        $method = $reflection->getMethod('getValueByPosition');
+        $method->setAccessible(true);
+
+        $this->assertEquals('pear', $method->invoke($this->weightList, 105));
+    }
+    
+    function testGetRandomValue()
     {
         $stat = array();
 
         for($i = 0; $i < 10000; $i++) {
-            $key = $this->weightList->getRandomKey();
+            $value = $this->weightList->getRandomValue();
 
-            if(!isset($stat[$key])) {
-                $stat[$key] = 0;
+            if(!isset($stat[$value])) {
+                $stat[$value] = 0;
             }
 
-            $stat[$key]++;
+            $stat[$value]++;
         }
 
         arsort($stat);

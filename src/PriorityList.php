@@ -2,11 +2,11 @@
 
 namespace Sokil\DataType;
 
-class PriorityList implements ListInterface, \Iterator, \Countable
+class PriorityList implements \Iterator, \Countable
 {    
     private $lastSequence = 0;
     
-    private $list = array();
+    private $list;
     
     const ORDER_ASC = 'asc';
     const ORDER_DESC = 'desc';
@@ -28,17 +28,6 @@ class PriorityList implements ListInterface, \Iterator, \Countable
         $this->list[$key]->sequence = $this->lastSequence++;
         
         return $this->list[$key];
-    }
-    
-    public function setPriority($key, $priority)
-    {
-        if($this->list[$key]) {
-            $this->list[$key]->priority = (int) $priority;
-        } else {
-            $this->set($key, null, $priority);
-        }
-        
-        return $this;
     }
     
     public function get($name)
