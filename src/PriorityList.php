@@ -40,6 +40,11 @@ class PriorityList implements \Iterator, \Countable
         return isset($this->list[$name]);
     }
 
+    public function getKeys()
+    {
+        return array_keys($this->list);
+    }
+
     public function count()
     {
         return count($this->list);

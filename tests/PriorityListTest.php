@@ -81,6 +81,22 @@ class PriorityListTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('v5', $list->get('k5'));
     }
 
+    public function testGetKeys()
+    {
+        $list = new PriorityList();
+
+        $list->set('k1', 'v1', 2);
+        $list->set('k2', 'v2', 8);
+        $list->set('k3', 'v3', 16);
+        $list->set('k4', 'v4', 1);
+        $list->set('k5', 'v5', 4);
+
+        $this->assertEquals(
+            array('k1', 'k2', 'k3', 'k4', 'k5'),
+            $list->getKeys()
+        );
+    }
+
     public function testHas()
     {
         $list = new PriorityList();
