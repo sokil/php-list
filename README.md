@@ -80,4 +80,4 @@ $list = new \Sokil\DataType\WeightList([
 $ipAddress = $list->getRandomValue();
 ```
     
-Now we new address on ewery request relatively to it's weight.
+Now we have address on every request relatively to it's weight.
