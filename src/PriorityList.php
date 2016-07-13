@@ -6,7 +6,7 @@ class PriorityList implements \Iterator, \Countable
 {
     private $lastSequence = 0;
 
-    private $list;
+    private $list = array();
 
     const ORDER_ASC = 'asc';
     const ORDER_DESC = 'desc';
