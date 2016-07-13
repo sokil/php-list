@@ -96,6 +96,16 @@ class PriorityListTest extends \PHPUnit_Framework_TestCase
             $list->getKeys()
         );
     }
+    
+    public function testGetKeys_EmptyList()
+    {
+        $list = new PriorityList();
+
+        $this->assertEquals(
+            array(),
+            $list->getKeys()
+        );
+    }
 
     public function testHas()
     {
