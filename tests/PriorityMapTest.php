@@ -2,13 +2,11 @@
 
 namespace Sokil\DataType;
 
-class PriorityListTest extends \PHPUnit_Framework_TestCase
+class PriorityMapTest extends \PHPUnit_Framework_TestCase
 {
     public function testToArrayDesc()
     {
-        $list = new PriorityList();
-
-        $this->assertEquals(array('a' => 'a', 'b' => 'b'), array('b' => 'b', 'a' => 'a'));
+        $list = new PriorityMap();
 
         $list->set('k1', 'v1', 2);
         $list->set('k2', 'v2', 8);
@@ -38,7 +36,7 @@ class PriorityListTest extends \PHPUnit_Framework_TestCase
 
     public function testToArrayAsc()
     {
-        $list = new PriorityList();
+        $list = new PriorityMap();
 
         $list->setAscOrder();
 
@@ -70,7 +68,7 @@ class PriorityListTest extends \PHPUnit_Framework_TestCase
 
     public function testGet()
     {
-        $list = new PriorityList();
+        $list = new PriorityMap();
 
         $list->set('k1', 'v1', 2);
         $list->set('k2', 'v2', 8);
@@ -83,7 +81,7 @@ class PriorityListTest extends \PHPUnit_Framework_TestCase
 
     public function testGetKeys()
     {
-        $list = new PriorityList();
+        $list = new PriorityMap();
 
         $list->set('k1', 'v1', 2);
         $list->set('k2', 'v2', 8);
@@ -96,10 +94,10 @@ class PriorityListTest extends \PHPUnit_Framework_TestCase
             $list->getKeys()
         );
     }
-    
+
     public function testGetKeys_EmptyList()
     {
-        $list = new PriorityList();
+        $list = new PriorityMap();
 
         $this->assertEquals(
             array(),
@@ -107,19 +105,9 @@ class PriorityListTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function testHas()
-    {
-        $list = new PriorityList();
-
-        $list->set('k1', 'v1', 2);
-
-        $this->assertTrue($list->has('k1'));
-        $this->assertFalse($list->has('UNKNOWN_KEY'));
-    }
-
     public function testGet_KeyNotExists()
     {
-        $list = new PriorityList();
+        $list = new PriorityMap();
 
         $list->set('k1', 'v1', 2);
         $list->set('k2', 'v2', 8);
@@ -130,33 +118,30 @@ class PriorityListTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(null, $list->get('KEY_NOT_EXISTS'));
     }
 
-    public function testToArray()
+    public function testHas()
     {
-        $list = new PriorityList();
+        $list = new PriorityMap();
 
         $list->set('k1', 'v1', 2);
-        $list->set('k2', 'v2', 8);
-        $list->set('k3', 'v3', 16);
-        $list->set('k4', 'v4', 1);
-        $list->set('k5', 'v5', 4);
 
-        $expectedArray = array(
-            'k3' => 'v3',
-            'k2' => 'v2',
-            'k5' => 'v5',
-            'k1' => 'v1',
-            'k4' => 'v4',
-        );
+        $this->assertTrue($list->has('k1'));
+        $this->assertFalse($list->has('UNKNOWN_KEY'));
+    }
 
-        foreach($list->toArray() as $key => $value) {
-            $this->assertEquals(key($expectedArray), $key);
-            $this->assertEquals(current($expectedArray), $value);
+    public function testSet_ObjectKey()
+    {
+        $key1 = new \stdClass();
+        $key2 = new \stdClass();
+        $key3 = new \stdClass();
 
-            next($expectedArray);
-        }
+        $list = new PriorityMap();
+        $list->setAscOrder();
 
-        if(key($expectedArray)) {
-            $this->fail('Actual list less than expected');
-        }
+        $list->set($key1, 42, 1);
+        $list->set($key2, 41, 0);
+        $list->set($key3, 43, 2);
+
+        $list->rewind();
+        $this->assertEquals(41, $list->current());
     }
 }

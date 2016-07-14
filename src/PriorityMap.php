@@ -2,7 +2,7 @@
 
 namespace Sokil\DataType;
 
-class PriorityList implements \Iterator, \Countable
+class PriorityMap implements \Iterator, \Countable
 {
     private $lastSequence = 0;
 
@@ -14,14 +14,29 @@ class PriorityList implements \Iterator, \Countable
     private $order = self::ORDER_DESC;
 
     /**
+     * Get scalar key from mixed
+     */
+    private function getScalarKey($key)
+    {
+        if (is_object($key)) {
+            return spl_object_hash($key);
+        } else {
+            return $key;
+        }
+    }
+
+    /**
+     * Add new item to map
      *
      * @param string $key name
      * @param string $value value
      * @param string $priority priority
-     * @return \Sokil\PriorityList
+     * @return PriorityMap
      */
     public function set($key, $value, $priority = 0)
     {
+        $key = $this->getScalarKey($key);
+
         $this->list[$key] = new \stdclass();
         $this->list[$key]->value = $value;
         $this->list[$key]->priority = (int) $priority;
@@ -30,38 +45,79 @@ class PriorityList implements \Iterator, \Countable
         return $this->list[$key];
     }
 
-    public function get($name)
+    /**
+     * Get item from map
+     *
+     * @param $key
+     * @return null
+     */
+    public function get($key)
     {
-        return isset($this->list[$name]) ? $this->list[$name]->value : null;
+        $key = $this->getScalarKey($key);
+        return isset($this->list[$key]) ? $this->list[$key]->value : null;
     }
 
-    public function has($name)
+    /**
+     * Check if item in map
+     *
+     * @param $key
+     * @return bool
+     */
+    public function has($key)
     {
-        return isset($this->list[$name]);
+        $key = $this->getScalarKey($key);
+        return isset($this->list[$key]);
     }
 
+    /**
+     * Get list of keys
+     *
+     * @return array
+     */
     public function getKeys()
     {
         return array_keys($this->list);
     }
 
+    /**
+     * Get count or map
+     *
+     * @return int
+     */
     public function count()
     {
         return count($this->list);
     }
 
+    /**
+     * Set ASC direction of sorting
+     *
+     * @return $this
+     */
     public function setAscOrder()
     {
         $this->order = self::ORDER_ASC;
         return $this;
     }
 
+    /**
+     * Set DESC direction of sorting
+     *
+     * @return $this
+     */
     public function setDescOrder()
     {
         $this->order = self::ORDER_DESC;
         return $this;
     }
 
+    /**
+     * ASC sort strategy
+     *
+     * @param $declaration1
+     * @param $declaration2
+     * @return int
+     */
     private function ascSortStrategy($declaration1, $declaration2)
     {
         if($declaration1->priority === $declaration2->priority) {
@@ -71,6 +127,13 @@ class PriorityList implements \Iterator, \Countable
         return $declaration1->priority > $declaration2->priority ? 1 : -1;
     }
 
+    /**
+     * DESC sort strategy
+     *
+     * @param $declaration1
+     * @param $declaration2
+     * @return int
+     */
     private function descSortStrategy($declaration1, $declaration2)
     {
         if($declaration1->priority === $declaration2->priority) {
@@ -80,33 +143,59 @@ class PriorityList implements \Iterator, \Countable
         return $declaration1->priority < $declaration2->priority ? 1 : -1;
     }
 
+    /**
+     * Reset iterator
+     */
     public function rewind()
     {
         uasort($this->list, array($this, $this->order . 'SortStrategy'));
         reset($this->list);
     }
 
+    /**
+     * Get current item
+     *
+     * @return mixed
+     */
     public function current()
     {
         $item = current($this->list);
         return $item->value;
     }
 
+    /**
+     * Get current key
+     *
+     * @return mixed
+     */
     public function key()
     {
         return key($this->list);
     }
 
+    /**
+     * Mve iterator next
+     */
     public function next()
     {
         next($this->list);
     }
 
+    /**
+     * Check if current key is valid
+     *
+     * @return bool
+     */
     public function valid()
     {
         return null !== $this->key();
     }
 
+    /**
+     * Convert map to array
+     *
+     * @return array
+     */
     public function toArray()
     {
         return iterator_to_array($this);

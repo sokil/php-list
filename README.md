@@ -21,9 +21,9 @@ You can install library through Composer:
 }
 ```
 
-## Priority List
+## Priority Map
 
-Priority list allows you to specify priority of items and 
+Priority map allows you to specify priority of items and 
 iterate through this list in order to priority.
 
 Add elements to list with priority:
@@ -31,7 +31,7 @@ Add elements to list with priority:
 ```php
 <?php
 
-$list = new \Sokil\DataType\PriorityList();
+$list = new \Sokil\DataType\PriorityMap();
 $list->set('key1', 'value1', 10);
 $list->set('key2', 'value2', 100);
 ```
@@ -54,7 +54,7 @@ Get element by key:
 ```php
 <?php
 
-$list = new \Sokil\DataType\PriorityList();
+$list = new \Sokil\DataType\PriorityMap();
 $list->set('key1', 'value1', 10);
 $list->get('key1');
 ```
