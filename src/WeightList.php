@@ -25,6 +25,7 @@ class WeightList
     private function getValueByPosition($position)
     {
         $accumulator = 0;
+        $value = null;
         foreach($this->list as $value => $weight) {
             $accumulator += $weight;
             if($position <= $accumulator) {

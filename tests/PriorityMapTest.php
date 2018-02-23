@@ -2,7 +2,9 @@
 
 namespace Sokil\DataType;
 
-class PriorityMapTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class PriorityMapTest extends TestCase
 {
     public function testToArrayDesc()
     {
@@ -89,20 +91,28 @@ class PriorityMapTest extends \PHPUnit_Framework_TestCase
         $list->set('k4', 'v4', 1);
         $list->set('k5', 'v5', 4);
 
-        $this->assertEquals(
-            array('k1', 'k2', 'k3', 'k4', 'k5'),
-            $list->getKeys()
-        );
+        $result = $list->getKeys();
+
+        $this->assertCount(5, $result);
+        foreach($result as $key) {
+            $this->assertContains($key, $result);
+        }
+    }
+
+    public function testCount()
+    {
+        $list = new PriorityMap();
+
+        $list->set('K1', 'v1', 2);
+
+        $this->assertSame(1, $list->count());
     }
 
     public function testGetKeys_EmptyList()
     {
         $list = new PriorityMap();
 
-        $this->assertEquals(
-            array(),
-            $list->getKeys()
-        );
+        $this->assertCount(0, $list->getKeys());
     }
 
     public function testGet_KeyNotExists()
@@ -115,7 +125,7 @@ class PriorityMapTest extends \PHPUnit_Framework_TestCase
         $list->set('k4', 'v4', 1);
         $list->set('k5', 'v5', 4);
 
-        $this->assertEquals(null, $list->get('KEY_NOT_EXISTS'));
+        $this->assertNull($list->get('KEY_NOT_EXISTS'));
     }
 
     public function testHas()
@@ -143,5 +153,32 @@ class PriorityMapTest extends \PHPUnit_Framework_TestCase
 
         $list->rewind();
         $this->assertEquals(41, $list->current());
+    }
+
+    public function testSetDescOrder()
+    {
+        $key = new \stdClass();
+
+        $list = new PriorityMap();
+        $list->setDescOrder();
+
+        $list->set($key, 42, 1);
+        $list->set($key, 41, 0);
+        $list->set($key, 43, 2);
+
+        $this->assertSame(43, $list->current());
+    }
+
+    public function testToArray()
+    {
+        $key = new \stdClass();
+
+        $list = new PriorityMap();
+
+        $list->set($key, 42, 1);
+        $list->set($key, 41, 0);
+        $list->set($key, 43, 2);
+
+        $this->assertInternalType('array', $list->toArray());
     }
 }
