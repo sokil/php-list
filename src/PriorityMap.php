@@ -54,7 +54,12 @@ class PriorityMap implements \Iterator, \Countable
     public function get($key)
     {
         $key = $this->getScalarKey($key);
-        return isset($this->list[$key]) ? $this->list[$key]->value : null;
+
+        if(empty($this->list[$key])) {
+            throw new \OutOfBoundsException('Key of ' . $key . ' is out of bounds for the array.');
+        }
+
+        return $this->list[$key]->value;
     }
 
     /**

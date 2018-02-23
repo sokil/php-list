@@ -115,6 +115,9 @@ class PriorityMapTest extends TestCase
         $this->assertCount(0, $list->getKeys());
     }
 
+    /**
+     * @expectedException \OutOfBoundsException
+     */
     public function testGet_KeyNotExists()
     {
         $list = new PriorityMap();
@@ -125,7 +128,7 @@ class PriorityMapTest extends TestCase
         $list->set('k4', 'v4', 1);
         $list->set('k5', 'v5', 4);
 
-        $this->assertNull($list->get('KEY_NOT_EXISTS'));
+        $list->get('KEY_NOT_EXISTS');
     }
 
     public function testHas()

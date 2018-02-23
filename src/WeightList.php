@@ -25,7 +25,6 @@ class WeightList
     private function getValueByPosition($position)
     {
         $accumulator = 0;
-        $value = null;
         foreach($this->list as $value => $weight) {
             $accumulator += $weight;
             if($position <= $accumulator) {
@@ -33,7 +32,7 @@ class WeightList
             }
         }
 
-        return $value;
+        throw new \OutOfBoundsException('Index of ' . $position . ' is out of bounds for the array.');
     }
 
     public function getRandomValue()

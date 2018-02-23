@@ -50,14 +50,17 @@ class WeightListTest extends TestCase
 
     }
 
+    /**
+     * @expectedException \OutOfBoundsException
+     */
     public function testGetValueWithEmptyWeightList()
     {
-        $emptyWeughtList = new WeightList([]);
-        $reflection = new \ReflectionClass($emptyWeughtList);
+        $emptyWeightList = new WeightList([]);
+        $reflection = new \ReflectionClass($emptyWeightList);
         $method = $reflection->getMethod('getValueByPosition');
         $method->setAccessible(true);
 
-        $this->assertNull($method->invoke($emptyWeughtList, 0));
+        $method->invoke($emptyWeightList, 0);
     }
 
     public function testSet()
