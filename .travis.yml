@@ -12,7 +12,7 @@ php:
 matrix:
   include:
     - php: 5.3
-      dis: precise
+      dist: precise
 
 before_script:
   - composer install --dev --no-interaction
