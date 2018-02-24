@@ -92,13 +92,14 @@ class PriorityMapTest extends TestCase
         $list->set('k5', 'v5', 4);
 
         $result = $list->getKeys();
+        $resultValues = array_values($result);
 
         $this->assertCount(5, $result);
-        $this->assertContains('k1', $result);
-        $this->assertContains('k2', $result);
-        $this->assertContains('k3', $result);
-        $this->assertContains('k4', $result);
-        $this->assertContains('k5', $result);
+        $this->assertSame('k1', $resultValues[0]);
+        $this->assertSame('k2', $resultValues[1]);
+        $this->assertSame('k3', $resultValues[2]);
+        $this->assertSame('k4', $resultValues[3]);
+        $this->assertSame('k5', $resultValues[4]);
     }
 
     public function testCount()

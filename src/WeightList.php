@@ -35,6 +35,8 @@ class WeightList
                 return $value;
             }
         }
+
+        return $value;
     }
 
     public function getRandomValue()
