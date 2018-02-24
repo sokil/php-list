@@ -90,7 +90,7 @@ class WeightListTest extends TestCase
 
     public function testGetValues()
     {
-        $weightList = new WeightList(['apple' => 100]);
+        $weightList = new WeightList(array('apple' => 100));
         $result = $weightList->getValues();
 
         $this->assertInternalType('array', $result);
