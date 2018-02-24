@@ -55,12 +55,8 @@ class WeightListTest extends TestCase
      */
     public function testGetValueWithEmptyWeightList()
     {
-        $emptyWeightList = new WeightList([]);
-        $reflection = new \ReflectionClass($emptyWeightList);
-        $method = $reflection->getMethod('getValueByPosition');
-        $method->setAccessible(true);
-
-        $method->invoke($emptyWeightList, 0);
+        $emptyWeightList = new WeightList(array());
+        $emptyWeightList->getRandomValue();
     }
 
     public function testSet()

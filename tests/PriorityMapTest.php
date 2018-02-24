@@ -94,9 +94,11 @@ class PriorityMapTest extends TestCase
         $result = $list->getKeys();
 
         $this->assertCount(5, $result);
-        foreach($result as $key) {
-            $this->assertContains($key, $result);
-        }
+        $this->assertContains('k1', $result);
+        $this->assertContains('k2', $result);
+        $this->assertContains('k3', $result);
+        $this->assertContains('k4', $result);
+        $this->assertContains('k5', $result);
     }
 
     public function testCount()
@@ -108,6 +110,13 @@ class PriorityMapTest extends TestCase
         $this->assertSame(1, $list->count());
     }
 
+    public function testCountWithEmptyList()
+    {
+        $list = new PriorityMap();
+
+        $this->assertSame(0, $list->count());
+    }
+
     public function testGetKeys_EmptyList()
     {
         $list = new PriorityMap();
@@ -115,9 +124,6 @@ class PriorityMapTest extends TestCase
         $this->assertCount(0, $list->getKeys());
     }
 
-    /**
-     * @expectedException \OutOfBoundsException
-     */
     public function testGet_KeyNotExists()
     {
         $list = new PriorityMap();
@@ -128,7 +134,7 @@ class PriorityMapTest extends TestCase
         $list->set('k4', 'v4', 1);
         $list->set('k5', 'v5', 4);
 
-        $list->get('KEY_NOT_EXISTS');
+        $this->assertNull($list->get('KEY_NOT_EXISTS'));
     }
 
     public function testHas()
@@ -174,14 +180,20 @@ class PriorityMapTest extends TestCase
 
     public function testToArray()
     {
-        $key = new \stdClass();
+        $key1 = new \stdClass();
+        $key2 = new \stdClass();
+        $key3 = new \stdClass();
 
         $list = new PriorityMap();
 
-        $list->set($key, 42, 1);
-        $list->set($key, 41, 0);
-        $list->set($key, 43, 2);
+        $list->set($key1, 42, 1);
+        $list->set($key2, 41, 0);
+        $list->set($key3, 43, 2);
 
-        $this->assertInternalType('array', $list->toArray());
+        $result = $list->toArray();
+
+        $this->assertContains(42, $result);
+        $this->assertContains(41, $result);
+        $this->assertContains(43, $result);
     }
 }
