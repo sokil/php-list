@@ -24,14 +24,14 @@ class WeightList
 
     private function getValueByPosition($position)
     {
-        if(count($this->list) === 0) {
+        if (count($this->list) === 0) {
             throw new \OutOfBoundsException('Index of ' . $position . ' is out of bounds for the array.');
         }
 
         $accumulator = 0;
-        foreach($this->list as $value => $weight) {
+        foreach ($this->list as $value => $weight) {
             $accumulator += $weight;
-            if($position <= $accumulator) {
+            if ($position <= $accumulator) {
                 return $value;
             }
         }

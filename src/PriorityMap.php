@@ -54,7 +54,7 @@ class PriorityMap implements \Iterator, \Countable
     public function get($key)
     {
         $key = $this->getScalarKey($key);
-        if(isset($this->list[$key])) {
+        if (isset($this->list[$key])) {
             return $this->list[$key]->value;
         }
 
@@ -124,7 +124,7 @@ class PriorityMap implements \Iterator, \Countable
      */
     private function ascSortStrategy($declaration1, $declaration2)
     {
-        if($declaration1->priority === $declaration2->priority) {
+        if ($declaration1->priority === $declaration2->priority) {
             return $declaration1->sequence < $declaration2->sequence ? 1 : -1;
         }
 
@@ -140,7 +140,7 @@ class PriorityMap implements \Iterator, \Countable
      */
     private function descSortStrategy($declaration1, $declaration2)
     {
-        if($declaration1->priority === $declaration2->priority) {
+        if ($declaration1->priority === $declaration2->priority) {
             return $declaration1->sequence < $declaration2->sequence ? 1 : -1;
         }
 
