@@ -92,9 +92,7 @@ class PriorityMapTest extends TestCase
         $list->set('k5', 'v5', 4);
 
         $result = $list->getKeys();
-        $resultValues = array_values($result);
 
-        $this->assertCount(5, $result);
         $this->assertSame(
             array('k1', 'k2', 'k3', 'k4', 'k5'),
             $list->getKeys()
@@ -121,10 +119,14 @@ class PriorityMapTest extends TestCase
     {
         $list = new PriorityMap();
 
-        $this->assertCount(0, $list->getKeys());
+        $this->assertSame([], $list->getKeys());
     }
 
-    public function testGet_KeyNotExists()
+    /**
+     * @expectedException        \OutOfBoundsException
+     * @expectedExceptionMessage The key KEY_NOT_EXISTSis not existed.
+     */
+    public function testGet_KeyNotExistsShouldThrowOutOfBoundsException()
     {
         $list = new PriorityMap();
 
@@ -134,7 +136,7 @@ class PriorityMapTest extends TestCase
         $list->set('k4', 'v4', 1);
         $list->set('k5', 'v5', 4);
 
-        $this->assertNull($list->get('KEY_NOT_EXISTS'));
+        $list->get('KEY_NOT_EXISTS');
     }
 
     public function testHas()
