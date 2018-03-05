@@ -180,9 +180,9 @@ class PriorityMapTest extends TestCase
 
     public function testToArray()
     {
-        $key1 = new \stdClass();
-        $key2 = new \stdClass();
-        $key3 = new \stdClass();
+        $key1 = 'k1';
+        $key2 = 'k2';
+        $key3 = 'k3';
 
         $list = new PriorityMap();
 
@@ -192,6 +192,9 @@ class PriorityMapTest extends TestCase
 
         $result = $list->toArray();
 
-        $this->assertSame(array('0' => 42, '1' => 41, '2' => 43), $result);
+        $this->assertSame(array(
+            $key3 => 43,
+            $key1 => 42,
+            $key2 => 41), $result);
     }
 }
