@@ -91,8 +91,6 @@ class PriorityMapTest extends TestCase
         $list->set('k4', 'v4', 1);
         $list->set('k5', 'v5', 4);
 
-        $result = $list->getKeys();
-
         $this->assertSame(
             array('k1', 'k2', 'k3', 'k4', 'k5'),
             $list->getKeys()
@@ -119,7 +117,7 @@ class PriorityMapTest extends TestCase
     {
         $list = new PriorityMap();
 
-        $this->assertSame([], $list->getKeys());
+        $this->assertSame(array(), $list->getKeys());
     }
 
     /**
@@ -194,8 +192,6 @@ class PriorityMapTest extends TestCase
 
         $result = $list->toArray();
 
-        $this->assertContains(42, $result);
-        $this->assertContains(41, $result);
-        $this->assertContains(43, $result);
+        $this->assertSame(array('0' => 42, '1' => 41, '2' => 43), $result);
     }
 }
