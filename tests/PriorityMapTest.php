@@ -24,14 +24,14 @@ class PriorityMapTest extends TestCase
             'k4' => 'v4',
         );
 
-        foreach($list as $key => $value) {
+        foreach ($list as $key => $value) {
             $this->assertEquals(key($expectedArray), $key);
             $this->assertEquals(current($expectedArray), $value);
 
             next($expectedArray);
         }
 
-        if(key($expectedArray)) {
+        if (key($expectedArray)) {
             $this->fail('Actual list less than expected');
         }
     }
@@ -56,14 +56,14 @@ class PriorityMapTest extends TestCase
             'k3' => 'v3',
         );
 
-        foreach($list as $key => $value) {
+        foreach ($list as $key => $value) {
             $this->assertEquals(key($expectedArray), $key);
             $this->assertEquals(current($expectedArray), $value);
 
             next($expectedArray);
         }
 
-        if(key($expectedArray)) {
+        if (key($expectedArray)) {
             $this->fail('Actual list less than expected');
         }
     }
@@ -122,7 +122,7 @@ class PriorityMapTest extends TestCase
 
     /**
      * @expectedException        \OutOfBoundsException
-     * @expectedExceptionMessage The key KEY_NOT_EXISTSis not existed.
+     * @expectedExceptionMessage The key KEY_NOT_EXISTS is not existed.
      */
     public function testGet_KeyNotExistsShouldThrowOutOfBoundsException()
     {

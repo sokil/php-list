@@ -58,7 +58,7 @@ class PriorityMap implements \Iterator, \Countable
             return $this->list[$key]->value;
         }
 
-        throw new \OutOfBoundsException('The key ' . $key . 'is not existed.');
+        throw new \OutOfBoundsException('The key ' . $key . ' is not existed.');
     }
 
     /**

@@ -27,7 +27,6 @@ class WeightListTest extends TestCase
     protected function setUp()
     {
         $this->weightList = new WeightList($this->weights);
-        
     }
     
     public function testGetValue()
@@ -47,7 +46,6 @@ class WeightListTest extends TestCase
         $this->assertEquals('lemon', $method->invoke($this->weightList, 71));
 
         $this->assertEquals('potato', $method->invoke($this->weightList, 100));
-
     }
 
     /**
@@ -74,10 +72,10 @@ class WeightListTest extends TestCase
     {
         $stat = array();
 
-        for($i = 0; $i < 10000; $i++) {
+        for ($i = 0; $i < 10000; $i++) {
             $value = $this->weightList->getRandomValue();
 
-            if(!isset($stat[$value])) {
+            if (!isset($stat[$value])) {
                 $stat[$value] = 0;
             }
 
