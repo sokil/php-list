@@ -2,7 +2,9 @@
 
 namespace Sokil\DataType;
 
-class PriorityMapTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class PriorityMapTest extends TestCase
 {
     public function testToArrayDesc()
     {
@@ -22,14 +24,14 @@ class PriorityMapTest extends \PHPUnit_Framework_TestCase
             'k4' => 'v4',
         );
 
-        foreach($list as $key => $value) {
+        foreach ($list as $key => $value) {
             $this->assertEquals(key($expectedArray), $key);
             $this->assertEquals(current($expectedArray), $value);
 
             next($expectedArray);
         }
 
-        if(key($expectedArray)) {
+        if (key($expectedArray)) {
             $this->fail('Actual list less than expected');
         }
     }
@@ -54,14 +56,14 @@ class PriorityMapTest extends \PHPUnit_Framework_TestCase
             'k3' => 'v3',
         );
 
-        foreach($list as $key => $value) {
+        foreach ($list as $key => $value) {
             $this->assertEquals(key($expectedArray), $key);
             $this->assertEquals(current($expectedArray), $value);
 
             next($expectedArray);
         }
 
-        if(key($expectedArray)) {
+        if (key($expectedArray)) {
             $this->fail('Actual list less than expected');
         }
     }
@@ -89,23 +91,40 @@ class PriorityMapTest extends \PHPUnit_Framework_TestCase
         $list->set('k4', 'v4', 1);
         $list->set('k5', 'v5', 4);
 
-        $this->assertEquals(
+        $this->assertSame(
             array('k1', 'k2', 'k3', 'k4', 'k5'),
             $list->getKeys()
         );
+    }
+
+    public function testCount()
+    {
+        $list = new PriorityMap();
+
+        $list->set('K1', 'v1', 2);
+
+        $this->assertSame(1, $list->count());
+    }
+
+    public function testCountWithEmptyList()
+    {
+        $list = new PriorityMap();
+
+        $this->assertSame(0, $list->count());
     }
 
     public function testGetKeys_EmptyList()
     {
         $list = new PriorityMap();
 
-        $this->assertEquals(
-            array(),
-            $list->getKeys()
-        );
+        $this->assertSame(array(), $list->getKeys());
     }
 
-    public function testGet_KeyNotExists()
+    /**
+     * @expectedException        \OutOfBoundsException
+     * @expectedExceptionMessage The key KEY_NOT_EXISTS is not existed.
+     */
+    public function testGet_KeyNotExistsShouldThrowOutOfBoundsException()
     {
         $list = new PriorityMap();
 
@@ -115,7 +134,7 @@ class PriorityMapTest extends \PHPUnit_Framework_TestCase
         $list->set('k4', 'v4', 1);
         $list->set('k5', 'v5', 4);
 
-        $this->assertEquals(null, $list->get('KEY_NOT_EXISTS'));
+        $list->get('KEY_NOT_EXISTS');
     }
 
     public function testHas()
@@ -143,5 +162,39 @@ class PriorityMapTest extends \PHPUnit_Framework_TestCase
 
         $list->rewind();
         $this->assertEquals(41, $list->current());
+    }
+
+    public function testSetDescOrder()
+    {
+        $key = new \stdClass();
+
+        $list = new PriorityMap();
+        $list->setDescOrder();
+
+        $list->set($key, 42, 1);
+        $list->set($key, 41, 0);
+        $list->set($key, 43, 2);
+
+        $this->assertSame(43, $list->current());
+    }
+
+    public function testToArray()
+    {
+        $key1 = 'k1';
+        $key2 = 'k2';
+        $key3 = 'k3';
+
+        $list = new PriorityMap();
+
+        $list->set($key1, 42, 1);
+        $list->set($key2, 41, 0);
+        $list->set($key3, 43, 2);
+
+        $result = $list->toArray();
+
+        $this->assertSame(array(
+            $key3 => 43,
+            $key1 => 42,
+            $key2 => 41), $result);
     }
 }

@@ -2,7 +2,9 @@
 
 namespace Sokil\DataType;
 
-class WeightListTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class WeightListTest extends TestCase
 {
     
     /**
@@ -15,17 +17,16 @@ class WeightListTest extends \PHPUnit_Framework_TestCase
         'tomato'    => 7,
         'potato'    => 3,
     );
-    
+
     /**
      *
      * @var \Sokil\Structure\WeightList
      */
     private $weightList;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->weightList = new WeightList($this->weights);
-        
     }
     
     public function testGetValue()
@@ -46,7 +47,16 @@ class WeightListTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('potato', $method->invoke($this->weightList, 100));
     }
-    
+
+    /**
+     * @expectedException \OutOfBoundsException
+     */
+    public function testGetValueWithEmptyWeightList()
+    {
+        $emptyWeightList = new WeightList(array());
+        $emptyWeightList->getRandomValue();
+    }
+
     public function testSet()
     {
         $this->weightList->set('pear', 20);
@@ -58,14 +68,14 @@ class WeightListTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('pear', $method->invoke($this->weightList, 105));
     }
     
-    function testGetRandomValue()
+    public function testGetRandomValue()
     {
         $stat = array();
 
-        for($i = 0; $i < 10000; $i++) {
+        for ($i = 0; $i < 10000; $i++) {
             $value = $this->weightList->getRandomValue();
 
-            if(!isset($stat[$value])) {
+            if (!isset($stat[$value])) {
                 $stat[$value] = 0;
             }
 
@@ -74,5 +84,14 @@ class WeightListTest extends \PHPUnit_Framework_TestCase
 
         arsort($stat);
         $this->assertEquals(array_keys($this->weights), array_keys($stat));
+    }
+
+    public function testGetValues()
+    {
+        $weightList = new WeightList(array('apple' => 100));
+        $result = $weightList->getValues();
+
+        $this->assertInternalType('array', $result);
+        $this->assertContains('apple', $result);
     }
 }
