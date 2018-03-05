@@ -28,9 +28,10 @@ class PriorityMap implements \Iterator, \Countable
     /**
      * Add new item to map
      *
-     * @param string $key name
-     * @param string $value value
-     * @param string $priority priority
+     * @param mixed $key scalar value or object to add into priority map
+     * @param mixed $value value
+     * @param int $priority priority
+     *
      * @return PriorityMap
      */
     public function set($key, $value, $priority = 0)
@@ -48,8 +49,10 @@ class PriorityMap implements \Iterator, \Countable
     /**
      * Get item from map
      *
-     * @param $key
-     * @return null
+     * @param mixed $key
+     * @return mixed
+     *
+     * @throws \OutOfBoundsException when key is not exists
      */
     public function get($key)
     {
@@ -64,7 +67,7 @@ class PriorityMap implements \Iterator, \Countable
     /**
      * Check if item in map
      *
-     * @param $key
+     * @param mixed $key
      * @return bool
      */
     public function has($key)
