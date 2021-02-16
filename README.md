@@ -4,6 +4,8 @@ Lists
 [![Build Status](https://travis-ci.org/sokil/php-list.png?branch=master&1)](https://travis-ci.org/sokil/php-list)
 [![Latest Stable Version](https://poser.pugx.org/sokil/php-list/v/stable.png)](https://packagist.org/packages/sokil/php-list)
 [![Coverage Status](https://coveralls.io/repos/sokil/php-list/badge.png)](https://coveralls.io/r/sokil/php-list)
+[![Total Downloads](http://img.shields.io/packagist/dt/sokil/php-list.svg?1)](https://packagist.org/packages/sokil/php-list)
+[![Daily Downloads](https://poser.pugx.org/sokil/php-list/d/daily)](https://packagist.org/packages/sokil/php-list/stats)
 
 * [Installation](#installation)
 * [Priority List](#priority-list)
